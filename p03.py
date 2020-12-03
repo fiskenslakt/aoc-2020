@@ -13,7 +13,6 @@ SLOPES = (
 )
 
 tree_map = data.splitlines()
-trees = 0
 trees = []
 tile_width = len(tree_map[0])
 
