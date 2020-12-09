@@ -1,21 +1,25 @@
 from itertools import combinations
 
-from aocd import data
+from aocd import data as xmas
 
 
-nums = [int(n) for n in data.splitlines()]
+numbers = [int(n) for n in xmas.splitlines()]
 
-for i, n in enumerate(nums[25:], 25):
-    for combo in combinations(nums[i-25:i], 2):
+for i, n in enumerate(numbers[25:], 25):
+    for combo in combinations(numbers[i-25:i], 2):
         if sum(combo) == n:
             break
     else:
-        print(n)
-        x = n
+        invalid_number = n
 
-for i in range(2, len(nums)-2):
-    for j in range(len(nums)-i):
-        if sum(nums[j:j+i]) == x:
-            y = nums[j:j+i]
-            print(min(y)+max(y))
-            raise SystemExit
+for i in range(2, len(numbers)-2):
+    for j in range(len(numbers)-i):
+        if sum(numbers[j:j+i]) == invalid_number:
+            contiguous_set = numbers[j:j+i]
+            break
+    else:
+        continue
+    break
+
+print('Part 1:', invalid_number)
+print('Part 2:', min(contiguous_set) + max(contiguous_set))
