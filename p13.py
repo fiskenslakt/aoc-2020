@@ -1,27 +1,38 @@
 import re
 
-from aocd import data
+from aocd import data as notes
 
 
-# data = '''939
-# 7,13,x,x,59,x,31,19'''
-
-
-timestamp, bus_ids = data.splitlines()
+timestamp, buses = notes.splitlines()
 
 timestamp = int(timestamp)
-bus_ids = [int(bus) for bus in re.findall(r'\d+', bus_ids)]
+bus_ids = [int(bus) for bus in re.findall(r'\d+', buses)]
 
-i = timestamp
+t = timestamp
 while True:
     for bus in bus_ids:
-        if i % bus == 0:
-            depart = i
+        if t % bus == 0:
+            earliest_departure = t
             break
     else:
-        i += 1
+        t += 1
         continue
     break
 
-ans = (depart - timestamp) * bus
-print('Part 1:', ans)
+print('Part 1:', (earliest_departure - timestamp) * bus)
+
+remainders = []
+for i, bus in enumerate(buses.split(',')):
+    if bus != 'x':
+        remainders.append(-i % int(bus))
+
+t = 0
+while not all(t % bus == rem for bus, rem in zip(bus_ids, remainders)):
+    step = 1
+    for bus, rem in zip(bus_ids, remainders):
+        if t % bus == rem:
+            step *= bus
+
+    t += step
+
+print('Part 2:', t)
