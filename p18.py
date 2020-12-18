@@ -4,7 +4,7 @@ from operator import add, mul
 from aocd import data as homework
 
 
-def get_infix(expression: str, advanced: bool = False) -> deque:
+def get_postfix(expression: str, advanced: bool = False) -> deque:
     ops = []
     queue = deque()
 
@@ -38,7 +38,7 @@ for part2 in (False, True):
     total = 0
     for problem in homework.splitlines():
         stack = []
-        queue = get_infix(problem, part2)
+        queue = get_postfix(problem, part2)
 
         while queue:
             token = queue.popleft()
