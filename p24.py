@@ -17,7 +17,7 @@ tiles = defaultdict(bool)
 
 for tile_steps in tile_routes.splitlines():
     pos = 0j
-    steps = re.findall(r'(s[we]|n[we]|w|e)', tile_steps)
+    steps = re.findall(r'[ns]?[we]', tile_steps)
     for step in steps:
         pos += cardinals[step]
 
